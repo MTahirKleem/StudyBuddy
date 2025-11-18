@@ -1,0 +1,32 @@
+# PDF Processing
+pypdf==3.17.4
+
+# HTTP
+requests==2.31.0
+
+# Qdrant vector DB
+qdrant-client[http]==1.8.0
+
+# Text Processing & LangChain
+langchain==0.1.0
+
+# Embeddings & Vector Store
+sentence-transformers==2.2.2
+
+# LLM Integration
+# We'll use OpenRouter via HTTP requests
+
+# Chunking & Tokenization
+tiktoken==0.5.2
+
+# UI Framework
+streamlit==1.29.0
+
+# Utilities
+python-dotenv==1.0.0
+pandas==2.1.4
+
+# Testing (Optional)
+pytest==7.4.3
+pytest-cov==4.1.0
+
