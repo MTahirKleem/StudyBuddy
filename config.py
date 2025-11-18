@@ -7,36 +7,61 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-# Load environment variables
+# Load environment variables from .env file (for local development)
 load_dotenv()
+
+# Try to import streamlit for secrets access
+try:
+    import streamlit as st
+    STREAMLIT_AVAILABLE = True
+except ImportError:
+    STREAMLIT_AVAILABLE = False
+
+
+def get_config_value(key: str, default: str = '') -> str:
+    """Get configuration value from Streamlit secrets or environment variables."""
+    if STREAMLIT_AVAILABLE:
+        try:
+            # Try to get from Streamlit secrets first
+            if hasattr(st, 'secrets') and key in st.secrets:
+                return str(st.secrets[key])
+        except Exception:
+            pass
+    # Fall back to environment variables
+    return os.getenv(key, default)
 
 
 class Config:
     """Application configuration."""
     
     # OpenAI / OpenRouter Settings
-    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
+    OPENAI_API_KEY = get_config_value('OPENAI_API_KEY')
     # Support both OPENROUTER_API_KEY and OPENROUTER_KEY
-    OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '') or os.getenv('OPENROUTER_KEY', '')
+    OPENROUTER_API_KEY = get_config_value('OPENROUTER_API_KEY') or get_config_value('OPENROUTER_KEY')
     # Support multiple env var names for base URL
-    OPENROUTER_API_BASE = os.getenv('OPENROUTER_API_BASE') or os.getenv('OPENROUTER_BASE_URL') or os.getenv('OPENROUTER_BASE', 'https://openrouter.ai')
-    EMBEDDING_MODEL = os.getenv('EMBEDDING_MODEL', 'text-embedding-ada-002')
-    LLM_MODEL = os.getenv('LLM_MODEL', 'gpt-4o-mini')
-    LLM_TEMPERATURE = float(os.getenv('LLM_TEMPERATURE', '0.1'))
-    MAX_TOKENS = int(os.getenv('MAX_TOKENS', '500'))
-    
+    OPENROUTER_API_BASE = (
+        get_config_value('OPENROUTER_API_BASE') or
+        get_config_value('OPENROUTER_BASE_URL') or
+        get_config_value('OPENROUTER_BASE') or
+        'https://openrouter.ai/api/v1'
+    )
+    EMBEDDING_MODEL = get_config_value('EMBEDDING_MODEL', 'text-embedding-ada-002')
+    LLM_MODEL = get_config_value('LLM_MODEL', 'openai/gpt-4o-mini')
+    LLM_TEMPERATURE = float(get_config_value('LLM_TEMPERATURE', '0.1'))
+    MAX_TOKENS = int(get_config_value('MAX_TOKENS', '500'))
+
     # Vector Store Settings (Qdrant)
-    QDRANT_URL = os.getenv('QDRANT_URL', 'http://localhost:6333')
-    QDRANT_API_KEY = os.getenv('QDRANT_API_KEY', '')
-    QDRANT_COLLECTION = os.getenv('QDRANT_COLLECTION', 'studybuddy')
-    VECTOR_DB_PATH = os.getenv('VECTOR_DB_PATH', './vector_db')
+    QDRANT_URL = get_config_value('QDRANT_URL', 'http://localhost:6333')
+    QDRANT_API_KEY = get_config_value('QDRANT_API_KEY')
+    QDRANT_COLLECTION = get_config_value('QDRANT_COLLECTION', 'studybuddy')
+    VECTOR_DB_PATH = get_config_value('VECTOR_DB_PATH', './vector_db')
 
     # Chunking Settings
-    CHUNK_SIZE = int(os.getenv('CHUNK_SIZE', '500'))
-    CHUNK_OVERLAP = int(os.getenv('CHUNK_OVERLAP', '50'))
+    CHUNK_SIZE = int(get_config_value('CHUNK_SIZE', '500'))
+    CHUNK_OVERLAP = int(get_config_value('CHUNK_OVERLAP', '50'))
 
     # RAG Settings
-    TOP_K_RESULTS = int(os.getenv('TOP_K_RESULTS', '3'))
+    TOP_K_RESULTS = int(get_config_value('TOP_K_RESULTS', '3'))
 
     # Paths
     BASE_DIR = Path(__file__).parent

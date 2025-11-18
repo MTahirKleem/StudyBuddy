@@ -111,7 +111,16 @@ def initialize_components():
 
     except Exception as e:
         st.error(f"Error initializing components: {str(e)}")
-        st.info("Make sure your .env file is configured with OPENROUTER_API_KEY")
+        st.info("""
+        **Configuration Required:**
+        
+        For local development: Create a `.env` file with your API keys
+        
+        For Streamlit Cloud: Add your secrets in the Streamlit Cloud dashboard:
+        - Go to your app settings → Secrets
+        - Add: `OPENROUTER_API_KEY = "your-key-here"`
+        - Also add `QDRANT_URL` and `QDRANT_API_KEY` if using cloud Qdrant
+        """)
         return False
 
 
