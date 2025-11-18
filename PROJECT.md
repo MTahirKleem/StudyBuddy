@@ -151,5 +151,5 @@ The goal of this project is to build a simple RAG-based study assistant that can
 
 **StudyBuddy** — Personal Retrieval-Augmented Generation (RAG) Learning Assistant
 ## 1. Project Title
-
+**StudyBuddy**
 

@@ -44,7 +44,7 @@ StudyBuddy is a smart study assistant that:
 
 1. **Clone the repository**
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/MTahirKleem/StudyBuddy.git
 cd StudyBuddy
 ```
 
@@ -109,8 +109,6 @@ Navigate to `http://localhost:8501`
 studybuddy/
 ├── README.md                 # This file
 ├── PROJECT.md               # Project specification
-├── IMPLEMENTATION_GUIDE.md  # Detailed step-by-step guide
-├── CHECKLIST.md             # Quick reference checklist
 ├── requirements.txt         # Python dependencies
 ├── .env                     # Environment variables (create this)
 ├── .env.example             # Example environment file
@@ -141,8 +139,6 @@ studybuddy/
 ## 📚 Documentation
 
 - **[PROJECT.md](PROJECT.md)**: Full project specification and requirements
-- **[IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md)**: Detailed step-by-step implementation guide
-- **[CHECKLIST.md](CHECKLIST.md)**: Quick reference checklist for development
 
 ---
 
@@ -163,17 +159,18 @@ By building this project, you will learn:
 Key settings in `.env`:
 
 ```env
-# OpenAI Configuration
-OPENAI_API_KEY=your_api_key_here
-EMBEDDING_MODEL=text-embedding-ada-002
-LLM_MODEL=gpt-3.5-turbo
-LLM_TEMPERATURE=0.1
-
-# Vector Store Configuration
-VECTOR_DB_PATH=./vector_db
+OPENROUTER_API_KEY=Your Open Router API Key Here
+OPENROUTER_BASE_URL=Base URL For Open Router If Any
+LLM_MODEL=anthropic/claude-3.5-sonnet
+QDRANT_URL=QdrantInstanceURL
+QDRANT_API_KEY=Your Qdrant API Key Here
+QDRANT_COLLECTION=Your Qdrant Collection Name Here
+EMBEDDING_MODEL=openai/text-embedding-3-small
 CHUNK_SIZE=500
 CHUNK_OVERLAP=50
-TOP_K_RESULTS=3
+TOP_K=3
+TEMPERATURE=0.1
+
 ```
 
 ---
@@ -184,10 +181,6 @@ Run tests with pytest:
 ```bash
 pytest tests/
 ```
-
-Manual testing checklist available in [CHECKLIST.md](CHECKLIST.md).
-
----
 
 ## 🎯 Roadmap
 
@@ -251,8 +244,7 @@ For questions or feedback, please open an issue on GitHub.
 Ready to build your personal study assistant?
 
 1. Read [PROJECT.md](PROJECT.md) for the full specification
-2. Follow [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md) step by step
-3. Use [CHECKLIST.md](CHECKLIST.md) to track your progress
 
-**Happy coding! 🚀📚**
+**Muhammad Tahir Kleem**  
+GitHub: [MTahirKleem](thttps://github.com/MTahirKleem)
 
